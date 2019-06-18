@@ -26,7 +26,7 @@ public class StartGame {
 
                     @Override
                     public String getAppName() {
-                        return "Crossword Garden";
+                        return "Jocul Cuvintelor";
                     }
 
                     @Override

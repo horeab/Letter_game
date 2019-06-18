@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 
 import libgdx.model.TextCell;
+import libgdx.resources.LettersGameLabel;
 import libgdx.resources.ResourcesManager;
 import libgdx.resources.dimen.MainDimen;
 import libgdx.utils.ScreenDimensionsManager;
@@ -28,7 +29,7 @@ public class Utils {
     }
 
     public static void animateIncorrectWord() {
-        new WordAnimationService().createWordInfoLabelAnimation("Incorrect word", ResourcesManager.getLabelRed());
+        new WordAnimationService().createWordInfoLabelAnimation(LettersGameLabel.INCORRECT_WORD.getText(), ResourcesManager.getLabelRed());
     }
 
     public static String getPressedWordForAlreadyDisplayedLetters(List<String> pressedLetters, List<? extends TextCell> cells) {
