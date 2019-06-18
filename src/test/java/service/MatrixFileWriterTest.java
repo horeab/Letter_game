@@ -21,7 +21,7 @@ public class MatrixFileWriterTest extends TestMain {
     @Test
     public void writeToFile() {
         int totalCrossWords = 10;
-        int totalNrOfLetters = 8;
+        int totalNrOfLetters = 4;
 //        int totalCrossWords = 9;
 //        int totalNrOfLetters = 10;
         new MatrixFileWriter().writeAllMatrixToFile(totalCrossWords, totalNrOfLetters);

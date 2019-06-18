@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import libgdx.game.Game;
 import libgdx.model.LetterButton;
+import libgdx.resources.LettersGameLabel;
 import libgdx.resources.ResourcesManager;
 import libgdx.screen.AbstractScreen;
 import libgdx.screens.game.GameScreen;
@@ -47,7 +48,7 @@ public abstract class CrosswordSubmitAndDeleteService extends SubmitAndDeleteSer
         String pressedWord = getPressedWord();
         if (isSubmitBtnVisible()) {
             if (isWordAlreadyFound(pressedWord)) {
-                wordAnimationService.createWordInfoLabelAnimation("Already added", ResourcesManager.getLabelGreen());
+                wordAnimationService.createWordInfoLabelAnimation(LettersGameLabel.ALREADY_ADDED.getText(), ResourcesManager.getLabelGreen());
             } else {
                 CrossWordWithPosition wordCorrect = isWordCorrect(pressedWord);
                 processGameFinished();
