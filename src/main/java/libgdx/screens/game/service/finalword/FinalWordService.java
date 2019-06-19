@@ -39,7 +39,6 @@ public class FinalWordService {
     private Table informationTable;
     private String finalWord;
     private int wrongPressedAnswers = 0;
-    private int crosswordsDisplayed = 1;
 
     public FinalWordService(String finalWord) {
         finalWordCells = createFinalWordCell(
@@ -195,7 +194,6 @@ public class FinalWordService {
                         Actions.delay(0.3f)
                 ));
         finalWordCell.setVisibleTextTable(true);
-        crosswordsDisplayed++;
         int numberOfDisplayedLetters = 0;
         for (FinalWordCell cell : finalWordCells) {
             if (cell.isTextTableVisible()) {
@@ -224,10 +222,6 @@ public class FinalWordService {
             pressFinger.setX(ScreenDimensionsManager.getScreenWidthValue(50) - imgDim / 2);
             Game.getInstance().getAbstractScreen().addActor(pressFinger);
         }
-    }
-
-    public int getCrosswordsDisplayed() {
-        return crosswordsDisplayed;
     }
 
     private void bringFinalWordLettersToFront() {

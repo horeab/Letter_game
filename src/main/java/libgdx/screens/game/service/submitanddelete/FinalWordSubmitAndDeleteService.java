@@ -38,7 +38,7 @@ public class FinalWordSubmitAndDeleteService extends SubmitAndDeleteService {
         };
         if (finalWord.equals(getPressedWord())) {
             LettersGame.getInstance().getAppInfoService().showPopupAd();
-            new CampaignService().levelFinished(finalWordService.getCrosswordsDisplayed(), finalWordService.getActiveStars(), campaignLevel);
+            new CampaignService().levelFinished(finalWordService.getActiveStars(), campaignLevel);
             new WordAnimationService().animateGameWin(runnable, finalWordService.getActiveStars());
             return true;
         }

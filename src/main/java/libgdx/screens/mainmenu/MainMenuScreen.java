@@ -85,7 +85,7 @@ public class MainMenuScreen extends AbstractScreen {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (new CampaignService().getCrosswordLevel(LettersCampaignLevelEnum.LEVEL_0_0) == -1) {
+                if (new CampaignService().getCrosswordLevel(LettersCampaignLevelEnum.LEVEL_0_0.getIndex()) == -1) {
                     screenManager.showGameScreen(LettersCampaignLevelEnum.LEVEL_0_0);
                 } else {
                     screenManager.showCampaignScreen();

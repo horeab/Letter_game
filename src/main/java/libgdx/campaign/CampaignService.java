@@ -21,7 +21,7 @@ public class CampaignService {
             if (maxFinishedLevel != null && maxFinishedLevel.getLevel() < values.length - 1
                     &&
                     getCampaignLevel(maxFinishedLevel.getLevel() + 1, allPlayedLevels) == null) {
-                levelFinished(maxFinishedLevel.getCrosswordLevel(), 0, getCampaignLevelEnum(maxFinishedLevel.getLevel()));
+                levelFinished(0, getCampaignLevelEnum(maxFinishedLevel.getLevel()));
                 CampaignLevel campaignLevelEnum = getCampaignLevelEnum(maxFinishedLevel.getLevel() + 1);
                 if (campaignLevelEnum != null) {
                     allPlayedLevels.add(new CampaignStoreLevel(campaignLevelEnum));
@@ -39,21 +39,23 @@ public class CampaignService {
         return total;
     }
 
-    public void levelFinished(int crosswordLevel, int starsWon, CampaignLevel level) {
-        Integer storeCrossWordLevel = getCrosswordLevel(level);
-        if (storeCrossWordLevel == -1 || storeCrossWordLevel > crosswordLevel) {
-            campaignStoreService.updateCrosswordLevel(level, crosswordLevel);
+    public void levelFinished(int starsWon, CampaignLevel level) {
+        Integer crosswordLevel = getCrosswordLevel(level.getIndex());
+        if (crosswordLevel == -1) {
+            campaignStoreService.updateCrosswordLevel(level);
             campaignStoreService.updateStatus(level, CampaignLevelStatusEnum.FINISHED);
+            campaignStoreService.updateStarsWon(level, starsWon);
+        } else if (campaignStoreService.getStarsWon(level.getIndex()) < starsWon) {
             campaignStoreService.updateStarsWon(level, starsWon);
         }
         CampaignLevel nextLevel = getNextLevel(level);
-        if (nextLevel != null) {
+        if (nextLevel != null && getCrosswordLevel(nextLevel.getIndex()) == -1) {
             campaignStoreService.createCampaignLevel(nextLevel);
         }
     }
 
-    public Integer getCrosswordLevel(CampaignLevel level) {
-        return campaignStoreService.getCrosswordLevel(level);
+    public Integer getCrosswordLevel(int campaignLevelEnumIndex) {
+        return campaignStoreService.getCrosswordLevel(campaignLevelEnumIndex);
     }
 
     public CampaignStoreLevel getMaxOpenedLevel(List<CampaignStoreLevel> allPlayedLevels) {
