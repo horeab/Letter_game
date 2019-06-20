@@ -37,7 +37,7 @@ public class MainMenuScreen extends AbstractScreen {
         float verticalGeneralMarginDimen = MainDimen.vertical_general_margin.getDimen();
         if (Gdx.app.getType() == Application.ApplicationType.iOS) {
             MyButton backBtn = new BackButtonBuilder().build();
-            table.add(backBtn).padLeft(-MainDimen.horizontal_general_margin.getDimen() * 40).padTop(-verticalGeneralMarginDimen * 3).width(backBtn.getWidth()).height(backBtn.getHeight()).row();
+            table.add(backBtn).padLeft(MainDimen.horizontal_general_margin.getDimen()).align(Align.left).width(backBtn.getWidth()).height(backBtn.getHeight()).row();
         }
         table.setFillParent(true);
         addTitle(table);
