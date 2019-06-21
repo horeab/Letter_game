@@ -69,7 +69,7 @@ public class FinalWordLettersToPressService extends LettersToPressService {
 
     @Override
     public float buttonMoveToY(MyButton myButton) {
-        return getUnpressedFinalWordCell().getY() - ScreenDimensionsManager.getScreenWidthValue(2);
+        return getUnpressedFinalWordCell().getY() - ScreenDimensionsManager.getScreenHeightValue(2);
     }
 
     @Override

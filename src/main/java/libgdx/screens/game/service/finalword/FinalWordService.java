@@ -170,10 +170,12 @@ public class FinalWordService {
             finalWordCell.getCell().addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    if (controlPanel == null) {
-                        createControlPanel(onCreateProcessControlsVisibility);
-                    } else {
-                        destroyControlPanel(onDestroyProcessControlsVisibility);
+                    if (!Game.getInstance().getAbstractScreen().isLoading()) {
+                        if (controlPanel == null) {
+                            createControlPanel(onCreateProcessControlsVisibility);
+                        } else {
+                            destroyControlPanel(onDestroyProcessControlsVisibility);
+                        }
                     }
                 }
             });
