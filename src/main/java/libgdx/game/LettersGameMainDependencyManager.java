@@ -3,6 +3,7 @@ package libgdx.game;
 import libgdx.constants.GameIdEnum;
 import libgdx.controls.labelimage.InventoryTableBuilderCreator;
 import libgdx.controls.popup.RatingService;
+import libgdx.resources.LettersGameLabel;
 import libgdx.resources.Resource;
 import libgdx.resources.ResourceService;
 import libgdx.screens.AbstractScreen;
@@ -11,7 +12,7 @@ import libgdx.services.LettersGameResourceService;
 import libgdx.services.ScreenManager;
 import libgdx.transactions.TransactionsService;
 
-public class LettersGameMainDependencyManager extends MainDependencyManager<ScreenManager, AbstractScreen, Resource, GameIdEnum> {
+public class LettersGameMainDependencyManager extends MainDependencyManager<ScreenManager, AbstractScreen, LettersGameLabel, Resource, GameIdEnum> {
 
     @Override
     public Class<Resource> getMainResourcesClass() {
@@ -31,6 +32,11 @@ public class LettersGameMainDependencyManager extends MainDependencyManager<Scre
     @Override
     public RatingService createRatingService(AbstractScreen abstractScreen) {
         return new LettersGameRatingService(abstractScreen);
+    }
+
+    @Override
+    public Class<LettersGameLabel> getGameLabelClass() {
+        return LettersGameLabel.class;
     }
 
     @Override

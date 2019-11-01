@@ -14,6 +14,7 @@ import libgdx.resources.ResourcesManager;
 import libgdx.services.CrossWordContext;
 import libgdx.services.CrossWordService;
 import libgdx.utils.ScreenDimensionsManager;
+import libgdx.utils.model.FontColor;
 
 public class HighlightCrossWordDisplayService extends CrossWordDisplayService {
 
@@ -55,12 +56,12 @@ public class HighlightCrossWordDisplayService extends CrossWordDisplayService {
 
     private void highlightCrossword(int positionInCrossWord) {
         for (CrossWordCell crossWordCell : getCells()) {
-            crossWordCell.getLetter().setStyle(ResourcesManager.getLabelGrey());
+            crossWordCell.getLetter().setTextColor(FontColor.GRAY);
             crossWordCell.getCell().setBackground(GraphicUtils.getNinePatch(Resource.found_all));
         }
         for (CrossWordCell crossWordCell : getCellsForPositionInCrossword(positionInCrossWord)) {
             crossWordCell.getCell().setBackground(GraphicUtils.getNinePatch(crossWordCell.getLetter().isVisible() ? getHorizontalOrVerticalCellBackground(positionInCrossWord) : CrossWordService.isHorizontal(positionInCrossWord) ? Resource.crossword_horizontal : Resource.crossword_vertical));
-            crossWordCell.getLetter().setStyle(ResourcesManager.getLabelBlack());
+            crossWordCell.getLetter().setTextColor(FontColor.BLACK);
         }
     }
 

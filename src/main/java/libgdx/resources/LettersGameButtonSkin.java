@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 import libgdx.graphics.GraphicUtils;
+import libgdx.utils.model.FontColor;
 
 public enum LettersGameButtonSkin implements libgdx.controls.button.ButtonSkin {
 
@@ -37,7 +38,7 @@ public enum LettersGameButtonSkin implements libgdx.controls.button.ButtonSkin {
     CAMPAIGN_LOCKED_LEVEL(Resource.btn_campaign_disabled, Resource.btn_campaign_disabled, Resource.btn_campaign_disabled, Resource.btn_campaign_disabled, null),
     ;
 
-    LettersGameButtonSkin(Res imgUp, Res imgDown, Res imgChecked, Res imgDisabled, Color buttonDisabledFontColor) {
+    LettersGameButtonSkin(Res imgUp, Res imgDown, Res imgChecked, Res imgDisabled, FontColor buttonDisabledFontColor) {
         this.imgUp = imgUp;
         this.imgDown = imgDown;
         this.imgChecked = imgChecked;
@@ -49,7 +50,7 @@ public enum LettersGameButtonSkin implements libgdx.controls.button.ButtonSkin {
     private Res imgDown;
     private Res imgChecked;
     private Res imgDisabled;
-    private Color buttonDisabledFontColor;
+    private FontColor buttonDisabledFontColor;
 
     @Override
     public Drawable getImgUp() {
@@ -72,7 +73,7 @@ public enum LettersGameButtonSkin implements libgdx.controls.button.ButtonSkin {
     }
 
     @Override
-    public Color getButtonDisabledFontColor() {
+    public FontColor getButtonDisabledFontColor() {
         return buttonDisabledFontColor;
     }
 }

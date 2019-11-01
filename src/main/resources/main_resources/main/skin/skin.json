@@ -11,13 +11,11 @@
 	},
 
 	"com.badlogic.gdx.graphics.g2d.BitmapFont": {
-		"big_font": {"file": "big_font.fnt"},
 		"font": {"file": "font.fnt"}
 	},
 
 	"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
 		"default": {"font": "font", "fontColor": "black" },
-		"big_font": {"font": "big_font", "fontColor": "black" },
 		"red":     {"font": "font", "fontColor": "red" },
 		"white":     {"font": "font", "fontColor": "white" },
 		"blue":     {"font": "font", "fontColor": "blue" },
@@ -28,9 +26,9 @@
 	},
 
 	"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
-		"default": {"up": "grey_normal", "down": "grey_normal", "disabled": "grey_normal", "font": "font", "pressedOffsetX": 1, "pressedOffsetY": -1, "disabledFontColor": "grey", "fontColor": "black" },
-		"disabled_correct": {"disabled": "grey_normal", "font": "font", "fontColor": "green", "disabledFontColor": "green" },
-		"disabled_incorrect": {"disabled": "grey_normal", "font": "font", "fontColor": "red" , "disabledFontColor": "red"}
+		"default": {"font": "font", "up": "grey_normal", "down": "grey_normal", "disabled": "grey_normal", "pressedOffsetX": 1, "pressedOffsetY": -1, "disabledFontColor": "grey", "fontColor": "black" },
+		"disabled_correct": {"font": "font", "disabled": "grey_normal", "fontColor": "green", "disabledFontColor": "green" },
+		"disabled_incorrect": {"font": "font", "disabled": "grey_normal", "fontColor": "red" , "disabledFontColor": "red"}
     },
 
 	"com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle": {

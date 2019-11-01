@@ -2,6 +2,7 @@ package libgdx.model;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
+import libgdx.utils.model.FontColor;
 import org.apache.commons.lang3.StringUtils;
 
 import libgdx.controls.label.MyWrappedLabel;
@@ -22,7 +23,7 @@ public class CrossWordCell implements TextCell {
         MyWrappedLabel letterLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder()
                 .setText(text)
                 .setSingleLineLabel()
-                .setTextStyle(ResourcesManager.getLabelBlack()).build());
+                .setTextColor(FontColor.BLACK).build());
         letterLabel.setVisible(StringUtils.isNotBlank(text));
         cell.add(letterLabel);
         this.letter = letterLabel;

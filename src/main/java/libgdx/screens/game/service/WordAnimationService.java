@@ -21,6 +21,7 @@ import libgdx.screen.AbstractScreen;
 import libgdx.services.ImageAnimation;
 import libgdx.services.Utils;
 import libgdx.utils.ScreenDimensionsManager;
+import libgdx.utils.model.FontColor;
 
 public class WordAnimationService {
 
@@ -34,8 +35,8 @@ public class WordAnimationService {
         new ActorAnimation(hintBtn, abstractScreen).animateZoomInZoomOut();
     }
 
-    public void createWordInfoLabelAnimation(String text, String textStyle) {
-        MyWrappedLabel infoLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setFontScale(FontManager.getBigFontDim()).setText(text).setTextStyle(textStyle).build());
+    public void createWordInfoLabelAnimation(String text, FontColor fontColor) {
+        MyWrappedLabel infoLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setFontScale(FontManager.getBigFontDim()).setText(text).setTextColor(fontColor).build());
         addWordInfoAnimation(infoLabel);
         infoLabel.setX(ScreenDimensionsManager.getScreenWidthValue(50));
         infoLabel.setY(ScreenDimensionsManager.getScreenHeightValue(60));

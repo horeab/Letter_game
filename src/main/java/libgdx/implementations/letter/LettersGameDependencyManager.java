@@ -20,6 +20,11 @@ public class LettersGameDependencyManager extends CampaignGameDependencyManager 
     }
 
     @Override
+    protected String allQuestionText() {
+        return "";
+    }
+
+    @Override
     public Class<LettersGameSpecificResource> getSpecificResourceTypeEnum() {
         return LettersGameSpecificResource.class;
     }

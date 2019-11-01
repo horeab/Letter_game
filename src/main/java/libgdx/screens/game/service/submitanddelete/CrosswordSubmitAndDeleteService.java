@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import libgdx.game.LettersGame;
 import libgdx.model.CrossWordWithPosition;
 
+import libgdx.utils.model.FontColor;
 import org.apache.commons.lang3.StringUtils;
 
 import libgdx.game.Game;
@@ -48,7 +49,7 @@ public abstract class CrosswordSubmitAndDeleteService extends SubmitAndDeleteSer
         String pressedWord = getPressedWord();
         if (isSubmitBtnVisible()) {
             if (isWordAlreadyFound(pressedWord)) {
-                wordAnimationService.createWordInfoLabelAnimation(LettersGameLabel.ALREADY_ADDED.getText(), ResourcesManager.getLabelGreen());
+                wordAnimationService.createWordInfoLabelAnimation(LettersGameLabel.ALREADY_ADDED.getText(), FontColor.GREEN);
             } else {
                 CrossWordWithPosition wordCorrect = isWordCorrect(pressedWord);
                 processGameFinished();

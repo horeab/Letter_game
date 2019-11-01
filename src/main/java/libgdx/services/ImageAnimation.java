@@ -17,6 +17,7 @@ import libgdx.resources.ResourcesManager;
 import libgdx.resources.dimen.MainDimen;
 import libgdx.utils.ActorPositionManager;
 import libgdx.utils.ScreenDimensionsManager;
+import libgdx.utils.model.FontColor;
 
 public class ImageAnimation {
 
@@ -39,7 +40,7 @@ public class ImageAnimation {
         table.setBackground(GraphicUtils.getNinePatch(Resource.gray_background));
         MyWrappedLabel myLabel = new MyWrappedLabel(text);
         myLabel.setFontScale(FontManager.getBigFontDim());
-        myLabel.setStyle(ResourcesManager.getLabelRed());
+        myLabel.setTextColor(FontColor.RED);
         table.add(myLabel);
         table.setTransform(true);
         ActorPositionManager.setActorCenterScreen(table);

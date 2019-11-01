@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Align;
 
 import libgdx.model.CrossWordWithPosition;
 
+import libgdx.utils.model.FontColor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
@@ -74,7 +75,7 @@ public abstract class CrossWordDisplayService {
             resource = Resource.remaining_more;
         } else if (remainingPosInCrossWordCell.size() == 0) {
             resource = Resource.found_all;
-            crossWordCell.getLetter().setStyle(ResourcesManager.getLabelGrey());
+            crossWordCell.getLetter().setTextColor(FontColor.GRAY);
         } else {
             resource = getHorizontalOrVerticalCellBackground(Integer.valueOf(remainingPosInCrossWordCell.get(0)));
         }

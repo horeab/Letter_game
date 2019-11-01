@@ -1,5 +1,6 @@
 package libgdx.screens.game.service;
 
+import libgdx.utils.model.FontColor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class Utils {
     }
 
     public static void animateIncorrectWord() {
-        new WordAnimationService().createWordInfoLabelAnimation(LettersGameLabel.INCORRECT_WORD.getText(), ResourcesManager.getLabelRed());
+        new WordAnimationService().createWordInfoLabelAnimation(LettersGameLabel.INCORRECT_WORD.getText(), FontColor.RED);
     }
 
     public static String getPressedWordForAlreadyDisplayedLetters(List<String> pressedLetters, List<? extends TextCell> cells) {
