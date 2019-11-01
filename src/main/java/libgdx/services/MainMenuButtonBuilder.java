@@ -29,7 +29,7 @@ public class MainMenuButtonBuilder extends ButtonBuilder {
 
     public MainMenuButtonBuilder setStartGameButton() {
         this.icon = Resource.flower;
-        setup(LettersGameLabel.START_GAME);
+        setup(LettersGameLabel.start_game);
         return this;
     }
 

@@ -13,7 +13,6 @@ import libgdx.resources.FontManager;
 import libgdx.resources.LettersGameLabel;
 import libgdx.resources.Res;
 import libgdx.resources.Resource;
-import libgdx.resources.ResourcesManager;
 import libgdx.resources.dimen.MainDimen;
 import libgdx.utils.ActorPositionManager;
 import libgdx.utils.ScreenDimensionsManager;
@@ -28,7 +27,7 @@ public class ImageAnimation {
     }
 
     public Table animateWinGame(Runnable runnable, Table topTable) {
-        return createTable(Resource.submit_btn_up, LettersGameLabel.LEVEL_FINISHED.getText(), topTable, runnable);
+        return createTable(Resource.submit_btn_up, LettersGameLabel.level_finished.getText(), topTable, runnable);
     }
 
     private Table createTable(Res resource, String text, Table topTable, Runnable runnable) {

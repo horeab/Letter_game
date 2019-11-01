@@ -88,7 +88,23 @@ public class TestMain implements ApplicationListener {
         }
 
         @Override
-        public void showPopupAd() {
+        public boolean isPortraitMode() {
+            return false;
+        }
+
+        @Override
+        public boolean isScreenShotMode() {
+            return false;
+        }
+
+        @Override
+        public String getProVersionStoreAppId() {
+            return null;
+        }
+
+        @Override
+        public void showPopupAd(Runnable afterClose) {
+
         }
 
         @Override
@@ -96,18 +112,9 @@ public class TestMain implements ApplicationListener {
             return 0;
         }
 
-        @Override
-        public String proVersionStoreAppId() {
-            return null;
-        }
 
         @Override
         public boolean isProVersion() {
-            return false;
-        }
-
-        @Override
-        public boolean screenShotMode() {
             return false;
         }
 
