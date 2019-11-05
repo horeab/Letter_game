@@ -6,11 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import libgdx.screens.game.service.letters.HighlightCrosswordLettersToPressService;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import libgdx.controls.button.ButtonBuilder;
 import libgdx.controls.button.MyButton;
@@ -18,7 +17,6 @@ import libgdx.game.Game;
 import libgdx.model.CrossWordWithPosition;
 import libgdx.resources.LettersGameButtonSize;
 import libgdx.resources.LettersGameButtonSkin;
-import libgdx.screens.game.service.crossworddisplay.CrossWordDisplayService;
 import libgdx.screens.game.service.letters.LettersToPressService;
 import libgdx.services.CrossWordContext;
 import libgdx.services.CrossWordService;
@@ -28,30 +26,40 @@ import libgdx.utils.ScreenDimensionsManager;
 
 public class HintService {
 
-    private final static int TOTAL_HINTS = 3;
-    //    public static final float FADE_OUT_DURATION = 1000;
-    public static final float FADE_OUT_DURATION = 10000;
+    private final static int TOTAL_HINTS = 8;
+    //    public static final float FADE_OUT_DURATION = 10000;
+    public static final float FADE_OUT_DURATION = 2000;
 
     private LettersToPressService lettersToPressService;
     private WordAnimationService wordAnimationService;
-    private CrossWordDisplayService crossWordDisplayService;
-    private Set<String> allPossibleCorrectWords;
+    private List<String> allPossibleCorrectWords;
     private List<CrossWordWithPosition> correctWords;
     private int pressedHintButtons = 0;
     private MyButton displayedHintButton;
     private CrossWordContext crossWordContext;
+    private Map<Integer, String> proposedHintWords = new HashMap<>();
 
     public HintService(CrossWordContext crossWordContext) {
         this.crossWordContext = crossWordContext;
-        this.allPossibleCorrectWords = crossWordContext.getAllPossibleCorrectWords();
+        this.allPossibleCorrectWords = new ArrayList<>(crossWordContext.getAllPossibleCorrectWords());
         this.correctWords = crossWordContext.getAllCrossWords();
         this.lettersToPressService = crossWordContext.getLettersToPressService();
         this.wordAnimationService = new WordAnimationService();
-        this.crossWordDisplayService = crossWordContext.getCrossWordDisplayService();
+    }
+
+    private boolean nextCrosswordsHasSameLengthAsLetters() {
+        for (CrossWordWithPosition word : crossWordContext.getAllCrossWords()) {
+            if (StringUtils.isBlank(word.getFoundWord()) && word.getWordLength() != crossWordContext.getTotalNrOfLetters()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void displayHint(boolean isFinalWordContextActive) {
-        if (displayedHintButton == null && pressedHintButtons < TOTAL_HINTS && !isFinalWordContextActive) {
+        if (displayedHintButton == null
+                && pressedHintButtons < TOTAL_HINTS
+                && !isFinalWordContextActive) {
             MyButton button = createHintBtn();
             float margin = getButtonSize().getWidth();
             int screenWidth = ScreenDimensionsManager.getScreenWidth();
@@ -102,16 +110,25 @@ public class HintService {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                lettersToPressService.setHintButtonsSkin(new LettersGameService(crossWordContext.getTotalCrossWords(), crossWordContext.getTotalNrOfLetters()).getWordLetters(getHintWord()));
-                button.setTouchable(Touchable.disabled);
-                button.addAction(Actions.sequence(Actions.fadeOut(0.5f), Utils.createRunnableAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        button.setVisible(false);
-                        displayedHintButton = null;
-                    }
-                })));
-                pressedHintButtons++;
+                HighlightCrosswordLettersToPressService lettersToPressService = (HighlightCrosswordLettersToPressService) crossWordContext.getLettersToPressService();
+                String alreadyPressedWord = lettersToPressService.getAlreadyPressedWord();
+                if (!getHintWord().substring(0, alreadyPressedWord.length()).equals(alreadyPressedWord)) {
+                    crossWordContext.getLettersToPressService().movePressedLetterButtonsToOriginal();
+                }
+                int firstEmptyCellIndex = lettersToPressService.getEmptyCellIndexes().get(crossWordContext.getLettersToPressService().getPressedLetters().size());
+                List<String> wordLetters = new LettersGameService(crossWordContext.getTotalCrossWords(), crossWordContext.getTotalNrOfLetters()).getWordLetters(getHintWord());
+                if (firstEmptyCellIndex != -1) {
+                    HintService.this.lettersToPressService.setHintButtonsSkin(Collections.singletonList(wordLetters.get(firstEmptyCellIndex)));
+                    button.setTouchable(Touchable.disabled);
+                    button.addAction(Actions.sequence(Actions.fadeOut(0.5f), Utils.createRunnableAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            button.setVisible(false);
+                            displayedHintButton = null;
+                        }
+                    })));
+                    pressedHintButtons++;
+                }
             }
         });
         button.setTransform(true);
@@ -124,15 +141,22 @@ public class HintService {
     }
 
     private String getHintWord() {
-        for (CrossWordWithPosition word : correctWords) {
-            if (StringUtils.isBlank(word.getFoundWord())) {
-                String firstMatchingWord = CrossWordService.getFirstMatchingWord(allPossibleCorrectWords, word);
-                while (crossWordContext.getCrossWordDisplayService().getAlreadyPressedCorrectWords().contains(firstMatchingWord)) {
-                    firstMatchingWord = CrossWordService.getFirstMatchingWord(allPossibleCorrectWords, word);
+        int foundWords = crossWordContext.getCrossWordDisplayService().getAlreadyPressedCorrectWords().size();
+        String proposedHintWord = proposedHintWords.get(foundWords);
+        if (proposedHintWord == null) {
+            proposedHintWord = "";
+            for (CrossWordWithPosition word : correctWords) {
+                if (StringUtils.isBlank(word.getFoundWord())) {
+                    String firstMatchingWord = CrossWordService.getFirstMatchingWord(allPossibleCorrectWords, word);
+                    while (crossWordContext.getCrossWordDisplayService().getAlreadyPressedCorrectWords().contains(firstMatchingWord)) {
+                        firstMatchingWord = CrossWordService.getFirstMatchingWord(allPossibleCorrectWords, word);
+                    }
+                    proposedHintWord = firstMatchingWord;
+                    break;
                 }
-                return firstMatchingWord;
             }
+            proposedHintWords.put(foundWords, proposedHintWord);
         }
-        return "";
+        return proposedHintWord;
     }
 }

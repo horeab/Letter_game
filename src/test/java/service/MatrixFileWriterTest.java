@@ -2,6 +2,7 @@ package service;
 
 import com.badlogic.gdx.Gdx;
 
+import libgdx.game.Game;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,10 +21,10 @@ public class MatrixFileWriterTest extends TestMain {
 
     @Test
     public void writeToFile() {
+//        int totalCrossWords = 2;
+//        int totalNrOfLetters = 4;
         int totalCrossWords = 10;
-        int totalNrOfLetters = 4;
-//        int totalCrossWords = 9;
-//        int totalNrOfLetters = 10;
+        int totalNrOfLetters = 8;
         new MatrixFileWriter().writeAllMatrixToFile(totalCrossWords, totalNrOfLetters);
     }
 
@@ -45,11 +46,19 @@ public class MatrixFileWriterTest extends TestMain {
     }
 
 
+    /**
+     * This method verifies allWords that they are common words.
+     * Ath the end of the method a printLn is made with all the valid words that need to be put in allWords.txt
+     */
     @Test
     public void parseLongText() {
         Set<String> allWords = new LettersGameService(2, 2).getAllWords(false);
         Scanner scanner = getFileContents("verifyText");
         Set<String> result = new HashSet<>();
+
+        //ENGLISH
+        List<String> OMMIT = Arrays.asList("abbrev", "adj", "adv", "conj", "phr", "prep", "eng", "pron", "ing");
+
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
             line = line.replace("!", "");
@@ -66,7 +75,8 @@ public class MatrixFileWriterTest extends TestMain {
             List<String> words = new ArrayList<>(Arrays.asList(line.split(" ")));
             for (String word : words) {
                 String s = word.toLowerCase();
-                if (allWords.contains(s.trim()) && isStringUpperCase(word)) {
+//                if (allWords.contains(s.trim()) && isStringUpperCase(word)) {
+                if (allWords.contains(s.trim()) && !OMMIT.contains(s.trim())) {
                     result.add(s);
 //                    if (s.length() == 3) {
 //                        System.out.println(s);
@@ -103,7 +113,7 @@ public class MatrixFileWriterTest extends TestMain {
 
     private Scanner getFileContents(final String fileName) {
         String gameId = GameIdEnum.lettersgame.name();
-        String lang = "ro";
+        String lang = Game.getInstance().getAppInfoService().getLanguage();
         return new Scanner(getFileText("tournament_resources/implementations/" + gameId + "/words/" + lang + "/" + fileName + ".txt"));
     }
 

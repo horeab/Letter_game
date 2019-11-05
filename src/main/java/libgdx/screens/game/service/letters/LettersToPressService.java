@@ -178,11 +178,14 @@ public abstract class LettersToPressService {
         for (String key : buttonKeys) {
             int i = 0;
             LetterButton button = getLetterButtons().get(key + i);
-            while (buttonsToChangeSkin.contains(button.getMyButton())) {
+            while (button != null && (button.getMyButton().getButtonSkin() == LettersGameButtonSkin.LETTER_BTN_HINT
+                    || buttonsToChangeSkin.contains(button.getMyButton()))) {
                 i++;
                 button = getLetterButtons().get(key + i);
             }
-            buttonsToChangeSkin.add(button.getMyButton());
+            if (button != null) {
+                buttonsToChangeSkin.add(button.getMyButton());
+            }
         }
         for (MyButton button : buttonsToChangeSkin) {
             button.setButtonSkin(LettersGameButtonSkin.LETTER_BTN_HINT);

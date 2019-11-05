@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import libgdx.constants.GameIdEnum;
+import libgdx.constants.Language;
 import libgdx.controls.popup.RatingService;
 import libgdx.game.Game;
 import libgdx.game.LettersGame;
@@ -134,7 +135,7 @@ public class TestMain implements ApplicationListener {
 
         @Override
         public String getLanguage() {
-            return "ro";
+            return Language.en.name();
         }
 
         @Override

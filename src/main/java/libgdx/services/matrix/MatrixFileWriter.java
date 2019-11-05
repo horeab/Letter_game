@@ -40,8 +40,8 @@ public class MatrixFileWriter {
                 //*******************************int tries = 200;
                 int tries = 20;
                 int matrixRepeated = 0;
-                while (tries > 0) {
-                    if (matrixRepeated > 20) {
+                while (tries > 0 && matrix.size() < tries) {
+                    if (matrixRepeated > tries) {
                         break;
                     }
                     if (matrix.contains(encodedCrossword) || encodedCrossword == null) {
@@ -72,8 +72,8 @@ public class MatrixFileWriter {
     }
 
     private void writeMatrixToFile(Set<String> matrix, int totalWords, int totalLetters) {
-//        String path = "C:\\workspace\\1letter\\src\\main\\resources\\tournament_resources\\implementations\\lettersgame\\matrix\\" + Game.getInstance().getAppInfoService().getLanguage() + "\\";
-        String path = "D:\\workspace\\Lett\\src\\main\\resources\\tournament_resources\\implementations\\lettersgame\\matrix\\" + Game.getInstance().getAppInfoService().getLanguage() + "\\";
+        String path = "C:\\workspace\\Letter_game\\src\\main\\resources\\tournament_resources\\implementations\\lettersgame\\matrix\\" + Game.getInstance().getAppInfoService().getLanguage() + "\\";
+//        String path = "D:\\workspace\\Lett\\src\\main\\resources\\tournament_resources\\implementations\\lettersgame\\matrix\\" + Game.getInstance().getAppInfoService().getLanguage() + "\\";
         String fileName = path + totalWords + "_" + totalLetters + ".txt";
         FileWriter fr = null;
         try {

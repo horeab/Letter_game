@@ -223,7 +223,7 @@ public class CrossWordService {
     private boolean verifyOverlappingCharactersAreSame(int iIndex, int jIndex, Collection<String> allWords, Map<CrossWordWithPosition, Pair<Integer, Integer>> wordsWithPositions, int characterIndexToTest, CrossWordWithPosition toTest) {
         String[][] matrix = buildWordMatrix(allWords, wordsWithPositions.keySet());
         String matrixLetter = getLetterFromEncodedVal(matrix[iIndex][jIndex]);
-        String firstMatchingWord = getFirstMatchingWord(allWords, toTest);
+        String firstMatchingWord = getFirstMatchingWord(new ArrayList<>(allWords), toTest);
         String characterToTest = Character.toString(firstMatchingWord.toCharArray()[characterIndexToTest]);
 
         //verify that the overlapping characters are same
@@ -248,7 +248,7 @@ public class CrossWordService {
         Set<String> availableWords = new HashSet<>(allWords);
         //verify that all the crosswords have at least one corresponding word
         for (CrossWordWithPosition crossWordWithPosition : listToTest) {
-            String matchingWord = getFirstMatchingWord(availableWords, crossWordWithPosition);
+            String matchingWord = getFirstMatchingWord(new ArrayList<>(availableWords), crossWordWithPosition);
             if (StringUtils.isNotBlank(matchingWord)) {
                 availableWords.remove(matchingWord);
             } else {
@@ -262,7 +262,7 @@ public class CrossWordService {
                 int iIndex = entry.getValue().getRight() + (isHorizontal ? 0 : j);
                 int jIndex = entry.getValue().getLeft() + (isHorizontal ? j : 0);
                 ////////////////TRIES//////////////
-                int tries = 500;
+                int tries = 50;
                 ////////////////TRIES//////////////
                 isGeneratedMatrixValid = verifyOverlappingCharactersAreSame(iIndex, jIndex, allWords, wordsWithPositions, j, entry.getKey());
                 while (!isGeneratedMatrixValid && tries > 0) {
@@ -321,7 +321,7 @@ public class CrossWordService {
         }
 
         ////////////////TRIES//////////////
-        int tries = 300;
+        int tries = 30;
         ////////////////TRIES//////////////
         for (int t = 0; t < tries; t++) {
             matrix = new CrossWordService().buildWordMatrix(allWords, listToTest);
@@ -332,13 +332,16 @@ public class CrossWordService {
                     break;
                 }
             }
+            if(!isGeneratedMatrixValid){
+                break;
+            }
         }
         return isGeneratedMatrixValid;
     }
 
     private boolean matrixIsRelSquare(String[][] matrix, int totalCrosswords) {
         //matrix should be as square as possible
-        return Math.abs(matrix.length - matrix[0].length) <= 2;
+        return Math.abs(matrix.length - matrix[0].length) <= 3;
     }
 
 
@@ -445,7 +448,7 @@ public class CrossWordService {
         return generatedMatrixValid;
     }
 
-    private static List<String> getMatchingWords(Collection<String> allWords, CrossWordWithPosition crossWordWithPosition) {
+    private static List<String> getMatchingWords(List<String> allWords, CrossWordWithPosition crossWordWithPosition) {
         List<String> result = new ArrayList<>();
         ArrayList<String> allWordsList = new ArrayList<>(allWords);
         Collections.shuffle(allWordsList);
@@ -465,7 +468,7 @@ public class CrossWordService {
         return result;
     }
 
-    public static String getFirstMatchingWord(Collection<String> allWords, CrossWordWithPosition
+    public static String getFirstMatchingWord(List<String> allWords, CrossWordWithPosition
             crossWordWithPosition) {
         List<String> matchingWords = getMatchingWords(allWords, crossWordWithPosition);
         Collections.shuffle(matchingWords);

@@ -115,7 +115,7 @@ public class LettersGameService {
     private int getMaxWordLength(boolean withDifficulty) {
         int wordLength;
         if (startingTotalLetters == 4) {
-            wordLength = 3;
+            wordLength = 4;
         } else if (startingTotalLetters == 6) {
             wordLength = 4;
         } else if (startingTotalLetters == 8) {
@@ -130,14 +130,14 @@ public class LettersGameService {
         wordLength = wordLength + (startingTotalWords - 4);
 
         int MAX_WORD_LENGTH = 8;
-        int MIN_WORD_LENGTH = 3;
+        int MIN_WORD_LENGTH = 4;
         wordLength = wordLength > MAX_WORD_LENGTH ? MAX_WORD_LENGTH : wordLength;
         wordLength = wordLength < MIN_WORD_LENGTH ? MIN_WORD_LENGTH : wordLength;
         return withDifficulty ? wordLength : MAX_WORD_LENGTH;
     }
 
     private int getMinWordLength() {
-        return 3;
+        return 4;
     }
 
     private boolean isAlpha(String name) {

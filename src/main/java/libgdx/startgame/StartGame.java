@@ -1,6 +1,7 @@
 package libgdx.startgame;
 
 import libgdx.constants.GameIdEnum;
+import libgdx.constants.Language;
 import libgdx.game.LettersGame;
 import libgdx.utils.startgame.test.DefaultAppInfoService;
 import libgdx.utils.startgame.test.DefaultBillingService;
@@ -31,7 +32,7 @@ public class StartGame {
 
                     @Override
                     public String getLanguage() {
-                        return "ro";
+                        return Language.en.name();
                     }
                 });
         libgdx.utils.startgame.StartGame.main(game, args);

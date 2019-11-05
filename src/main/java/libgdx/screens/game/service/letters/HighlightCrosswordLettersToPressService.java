@@ -15,6 +15,7 @@ import libgdx.screens.game.service.Utils;
 import libgdx.screens.game.service.crossworddisplay.HighlightCrossWordDisplayService;
 import libgdx.services.CrossWordContext;
 import libgdx.utils.ScreenDimensionsManager;
+import org.apache.commons.lang3.StringUtils;
 
 public class HighlightCrosswordLettersToPressService extends LettersToPressService {
 
@@ -49,12 +50,42 @@ public class HighlightCrosswordLettersToPressService extends LettersToPressServi
         return getEmptyCellsForHighlightedCrossword().get(pressedLetterButtons.size() - 1);
     }
 
-    private List<CrossWordCell> getEmptyCellsForHighlightedCrossword() {
+    public List<CrossWordCell> getEmptyCellsForHighlightedCrossword() {
         List<CrossWordCell> cellsForPositionInCrossword = crossWordDisplayService.getCellsForPositionInCrossword(crossWordDisplayService.getActiveHighlightedCrossword().getPositionInCrossWord());
         List<CrossWordCell> result = new ArrayList<>();
         for (CrossWordCell crossWordCell : cellsForPositionInCrossword) {
             if (!crossWordCell.getLetter().isVisible()) {
                 result.add(crossWordCell);
+            }
+        }
+        return result;
+    }
+
+    public String getAlreadyPressedWord() {
+        List<CrossWordCell> cellsForPositionInCrossword = crossWordDisplayService.getCellsForPositionInCrossword(crossWordDisplayService.getActiveHighlightedCrossword().getPositionInCrossWord());
+        StringBuilder result = new StringBuilder();
+        for (int i = 0, j = 0; i < cellsForPositionInCrossword.size(); i++) {
+            String textDisplayedForCell = cellsForPositionInCrossword.get(i).getTextDisplayedForCell();
+            if (StringUtils.isNotBlank(textDisplayedForCell)) {
+                result.append(textDisplayedForCell);
+            } else {
+                if (j < getPressedLetters().size()) {
+                    result.append(getPressedLetters().get(j));
+                    j++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return result.toString();
+    }
+
+    public List<Integer> getEmptyCellIndexes() {
+        List<CrossWordCell> cellsForPositionInCrossword = crossWordDisplayService.getCellsForPositionInCrossword(crossWordDisplayService.getActiveHighlightedCrossword().getPositionInCrossWord());
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < cellsForPositionInCrossword.size(); i++) {
+            if (!cellsForPositionInCrossword.get(i).getLetter().isVisible()) {
+                result.add(i);
             }
         }
         return result;
