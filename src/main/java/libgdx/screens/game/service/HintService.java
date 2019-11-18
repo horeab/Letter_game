@@ -82,6 +82,10 @@ public class HintService {
         return Utils.createRunnableAction(new Runnable() {
             @Override
             public void run() {
+                if (displayedHintButton != null) {
+                    displayedHintButton.setVisible(false);
+                    displayedHintButton.remove();
+                }
                 displayedHintButton = null;
             }
         });
@@ -110,6 +114,7 @@ public class HintService {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                displayedHintButton = null;
                 HighlightCrosswordLettersToPressService lettersToPressService = (HighlightCrosswordLettersToPressService) crossWordContext.getLettersToPressService();
                 String alreadyPressedWord = lettersToPressService.getAlreadyPressedWord();
                 if (!getHintWord().substring(0, alreadyPressedWord.length()).equals(alreadyPressedWord)) {
@@ -124,7 +129,7 @@ public class HintService {
                         @Override
                         public void run() {
                             button.setVisible(false);
-                            displayedHintButton = null;
+                            button.remove();
                         }
                     })));
                     pressedHintButtons++;

@@ -72,7 +72,12 @@ public class TestMain implements ApplicationListener {
         Mockito.when(preferencesService.getPreferences().getInteger("TransactionAmountEnum_VERSION")).thenReturn(0);
         Mockito.when(preferencesService.getPreferences().getString("TransactionAmountEnum_VALUE")).thenReturn("");
 
-        LettersGame game = new LettersGame(new DefaultFacebookService(), new DefaultBillingService(), new AppInfoServiceImpl());
+        LettersGame game = new LettersGame(new DefaultFacebookService(), new DefaultBillingService(), new AppInfoServiceImpl()) {
+            @Override
+            public void create() {
+                super.create();
+            }
+        };
         game.create();
 
         LettersGame.getInstance().setScreen(null);
@@ -83,6 +88,20 @@ public class TestMain implements ApplicationListener {
     }
 
     public class AppInfoServiceImpl implements AppInfoService {
+
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        //////////////LANG//////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        @Override
+        public String getLanguage() {
+            return Language.uk.name();
+        }
+
         @Override
         public String getGameIdPrefix() {
             return GameIdEnum.lettersgame.name();
@@ -133,10 +152,6 @@ public class TestMain implements ApplicationListener {
             return "Hangman Arena";
         }
 
-        @Override
-        public String getLanguage() {
-            return Language.en.name();
-        }
 
         @Override
         public String getStoreAppId() {

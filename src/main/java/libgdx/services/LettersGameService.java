@@ -102,6 +102,14 @@ public class LettersGameService {
         Scanner scanner = new Scanner(Gdx.files.internal(Game.getInstance().getAppInfoService().getImplementationGameResourcesFolder() + "words/" + Game.getInstance().getAppInfoService().getLanguage() + "/allWords.txt").readString());
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
+            //last part of the line is the correct word in this case
+//            if (line.contains(" ")) {
+//                line = line.split(" ")[1];
+//            }
+            //first part of the line is the correct word in this case
+            if (line.contains(" ")) {
+                line = line.split(" ")[0];
+            }
             if (line.length() >= getMinWordLength()
                     && line.length() <= getMaxWordLength(withDifficulty)
                     && isAlpha(line)) {

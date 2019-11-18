@@ -10,7 +10,6 @@ public enum LettersGameLabel implements libgdx.resources.gamelabel.GameLabel {
     level_finished,
     already_added,
     incorrect_word,
-    available_letters,
     ;
 
     @Override

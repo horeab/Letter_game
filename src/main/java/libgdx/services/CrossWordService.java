@@ -24,6 +24,8 @@ public class CrossWordService {
     public static final String HORIZ = "HH";
     public static final String VERT = "VV";
 
+    private int TRIES_DIV = 10;
+
     public List<CrossWordWithPosition> createAllCrossWords(Set<String> allWords, int totalCrossWords) {
         System.out.println(allWords);
         List<CrossWordWithPosition> list = new ArrayList<>();
@@ -240,7 +242,7 @@ public class CrossWordService {
         String[][] matrix = createEmptyCrosswordMatrix(wordsWithPositions);
 
         boolean isGeneratedMatrixValid = matrixIsRelSquare(matrix, totalCrosswords);
-        if(!isGeneratedMatrixValid){
+        if (!isGeneratedMatrixValid) {
             return false;
         }
         boolean isHorizontal = true;
@@ -262,7 +264,7 @@ public class CrossWordService {
                 int iIndex = entry.getValue().getRight() + (isHorizontal ? 0 : j);
                 int jIndex = entry.getValue().getLeft() + (isHorizontal ? j : 0);
                 ////////////////TRIES//////////////
-                int tries = 50;
+                int tries = 500 / TRIES_DIV;
                 ////////////////TRIES//////////////
                 isGeneratedMatrixValid = verifyOverlappingCharactersAreSame(iIndex, jIndex, allWords, wordsWithPositions, j, entry.getKey());
                 while (!isGeneratedMatrixValid && tries > 0) {
@@ -321,7 +323,7 @@ public class CrossWordService {
         }
 
         ////////////////TRIES//////////////
-        int tries = 30;
+        int tries = 300 / TRIES_DIV;
         ////////////////TRIES//////////////
         for (int t = 0; t < tries; t++) {
             matrix = new CrossWordService().buildWordMatrix(allWords, listToTest);
@@ -332,7 +334,7 @@ public class CrossWordService {
                     break;
                 }
             }
-            if(!isGeneratedMatrixValid){
+            if (!isGeneratedMatrixValid) {
                 break;
             }
         }

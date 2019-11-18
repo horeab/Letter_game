@@ -21,10 +21,10 @@ public class MatrixFileWriterTest extends TestMain {
 
     @Test
     public void writeToFile() {
-//        int totalCrossWords = 2;
-//        int totalNrOfLetters = 4;
-        int totalCrossWords = 10;
-        int totalNrOfLetters = 8;
+        int totalCrossWords = 2;
+        int totalNrOfLetters = 4;
+//        totalCrossWords = 7;
+//        totalNrOfLetters = 6;
         new MatrixFileWriter().writeAllMatrixToFile(totalCrossWords, totalNrOfLetters);
     }
 
@@ -48,7 +48,7 @@ public class MatrixFileWriterTest extends TestMain {
 
     /**
      * This method verifies allWords that they are common words.
-     * Ath the end of the method a printLn is made with all the valid words that need to be put in allWords.txt
+     * Attthe end of the method a printLn is made with all the valid words that need to be put in allWords.txt
      */
     @Test
     public void parseLongText() {
@@ -56,8 +56,9 @@ public class MatrixFileWriterTest extends TestMain {
         Scanner scanner = getFileContents("verifyText");
         Set<String> result = new HashSet<>();
 
+        List<String> OMMIT = new ArrayList<>();
         //ENGLISH
-        List<String> OMMIT = Arrays.asList("abbrev", "adj", "adv", "conj", "phr", "prep", "eng", "pron", "ing");
+//        List<String> OMMIT = Arrays.asList("abbrev", "adj", "adv", "conj", "phr", "prep", "eng", "pron", "ing");
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
