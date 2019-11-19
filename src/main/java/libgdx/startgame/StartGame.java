@@ -42,45 +42,45 @@ public class StartGame {
     public static String getTitle() {
         switch (Language.valueOf(Game.getInstance().getAppInfoService().getLanguage())) {
             case cs:
-                return "Světová geografie";
+                return "Slovní hra";
             case da:
-                return "Verdensgeografi";
+                return "Ordspelet";
             case de:
-                return "Weltgeografie";
+                return "Wortspiel";
             case en:
-                return "World Geography";
+                return "Letters Game";
             case es:
-                return "Geografia mundial";
+                return "El juego de palabras";
             case fr:
-                return "Géographie du monde";
+                return "Le jeu de mots";
             case hr:
-                return "Svjetska geografija";
+                return "Igra riječi";
             case hu:
-                return "Világföldrajz";
+                return "Szó Játék";
             case id:
-                return "Geografi dunia";
+                return "Game Kata";
             case it:
-                return "Geografia mondiale";
+                return "Il gioco di parole";
             case nl:
-                return "Wereld Aardrijkskunde";
+                return "Woordspel";
             case no:
-                return "Verdensgeografi";
+                return "Ordspillet";
             case pl:
-                return "Geografia świata";
+                return "Gra słowna";
             case pt:
-                return "Geografia mundial";
+                return "O jogo de palavras";
             case ro:
-                return "Geografia lumii";
+                return "Jocul Cuvintelor";
             case ru:
-                return "Мировая география";
+                return "Письма игры";
             case sk:
-                return "Svetová geografia";
+                return "Slovná Hra";
             case sv:
-                return "Världsgeografi";
+                return "Ordet Spel";
             case tr:
-                return "Dünya coğrafyası";
+                return "Harfler Oyunu";
             case uk:
-                return "Світова географія";
+                return "Гра в слова";
         }
         return null;
     }
