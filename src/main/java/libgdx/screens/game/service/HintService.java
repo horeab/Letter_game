@@ -27,8 +27,8 @@ import libgdx.utils.ScreenDimensionsManager;
 public class HintService {
 
     private final static int TOTAL_HINTS = 8;
-    //    public static final float FADE_OUT_DURATION = 10000;
-    public static final float FADE_OUT_DURATION = 2000;
+        public static final float FADE_OUT_DURATION = 15000;
+//    public static final float FADE_OUT_DURATION = 2000;
 
     private LettersToPressService lettersToPressService;
     private WordAnimationService wordAnimationService;

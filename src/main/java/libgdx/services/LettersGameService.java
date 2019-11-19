@@ -89,15 +89,15 @@ public class LettersGameService {
     public Set<String> getAllWords(boolean withFilter) {
         if (withFilter) {
             if (allWords.isEmpty()) {
-                allWords = allWordLines(withFilter);
+                allWords = allWordLines(withFilter, startingTotalLetters, startingTotalWords);
             }
             return allWords;
         } else {
-            return allWordLines(withFilter);
+            return allWordLines(withFilter, startingTotalLetters, startingTotalWords);
         }
     }
 
-    private Set<String> allWordLines(boolean withDifficulty) {
+    public static Set<String> allWordLines(boolean withDifficulty, int startingTotalLetters, int startingTotalWords) {
         Set<String> set = new HashSet<>();
         Scanner scanner = new Scanner(Gdx.files.internal(Game.getInstance().getAppInfoService().getImplementationGameResourcesFolder() + "words/" + Game.getInstance().getAppInfoService().getLanguage() + "/allWords.txt").readString());
         while (scanner.hasNextLine()) {
@@ -111,7 +111,7 @@ public class LettersGameService {
                 line = line.split(" ")[0];
             }
             if (line.length() >= getMinWordLength()
-                    && line.length() <= getMaxWordLength(withDifficulty)
+                    && line.length() <= getMaxWordLength(withDifficulty, startingTotalLetters, startingTotalWords)
                     && isAlpha(line)) {
                 set.add(line.toLowerCase());
             }
@@ -120,7 +120,7 @@ public class LettersGameService {
         return set;
     }
 
-    private int getMaxWordLength(boolean withDifficulty) {
+    private static int getMaxWordLength(boolean withDifficulty, int startingTotalLetters, int startingTotalWords) {
         int wordLength;
         if (startingTotalLetters == 4) {
             wordLength = 4;
@@ -144,11 +144,11 @@ public class LettersGameService {
         return withDifficulty ? wordLength : MAX_WORD_LENGTH;
     }
 
-    private int getMinWordLength() {
+    private static int getMinWordLength() {
         return 4;
     }
 
-    private boolean isAlpha(String name) {
+    private static boolean isAlpha(String name) {
         char[] chars = name.toCharArray();
 
         for (char c : chars) {
